@@ -1,0 +1,44 @@
+$default-font-color: gray;
+$background-color: black;
+$container-bgcolor: darkgray;
+$container-bordercolor: black;
+$textbox-bordercolor: lightgray;
+$button-textcolor: gray;
+
+
+@mixin mq($size) {
+    @media only screen and (min-width: $size) {
+        @content;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: 0;
+}
+
+html, body {
+    font-size: 18px;
+    font-family: "Metal Mania", cursive;
+    color: $default-font-color;
+    width: 100%;
+    min-height: 100%;
+    @include mq(768px) {
+        font-size: 22px;
+    }
+    background-image: url(/background.png);
+}
+
+body {
+    padding: 20px;
+    background-color: $background-color;
+}
+
+section {
+
+    width: 90%; 
+    max-width: 700px;
+    margin: auto;
+    border: 1px solid $container-bordercolor;
+}

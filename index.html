@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Craig Freeburg Weather App</title>
+    <link rel="stylesheet" href="sass/style.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+    <title>Craig Freeburg Weather</title>
 </head>
 <body>
     <main>
-        
+        <section class="locationSearch">
+            <form id="zipCodeForm">
+                <label for="zipCode">Enter zip code to search weather</label>
+                <input id="zipCode" type="number" size="5" autocomplete="off" placeholder="Zip Code" tabindex="0" />
+                <button id="search" class="button" title="Search for Weather" tabindex="0" aria-label="Search zip code for local weather">Search</button>
+                <button id="save" class="button" title="Save my Location" tabindex="0" aria-label="Save current location for future viewing">Save</button>
+            </form>
+            
+        </section>
+        <section class="weatherToday">
+
+        </section>
+        <section class="fiveDayForecast">
+
+        </section>
+
     </main>
 </body>
 </html>
