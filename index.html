@@ -10,19 +10,23 @@
 <body>
     <main>
         <section class="locationSearch">
+            <h1 class="city-state-display" id="city-state">Hays, Ks</h1>
             <form id="zipCodeForm">
                 <label for="zipCode">Enter zip code to search weather</label>
-                <input id="zipCode" type="number" size="5" autocomplete="off" placeholder="Zip Code" tabindex="0" />
+                <input id="zipCode" type="number" size="5" autocomplete="off" placeholder="Enter Zip Code" tabindex="0" />
                 <button id="search" class="button" title="Search for Weather" tabindex="0" aria-label="Search zip code for local weather">Search</button>
-                <button id="save" class="button" title="Save my Location" tabindex="0" aria-label="Save current location for future viewing">Save</button>
             </form>
+            <button id="save" class="button" title="Save my Location" tabindex="0" aria-label="Save current location for future viewing">Save</button>
             
         </section>
         <section class="weatherToday">
-
+            <hr>
+            <h2>Currently</h2>
+            
+            <hr>
         </section>
         <section class="fiveDayForecast">
-
+            <h2>Your 5 Day Forecast</h2>
         </section>
 
     </main>

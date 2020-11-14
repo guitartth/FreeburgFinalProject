@@ -1,0 +1,11 @@
+.fiveDayForecast {
+    min-height: 35vh;
+    padding: 0.75rem;
+
+    .todayDate {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+}
