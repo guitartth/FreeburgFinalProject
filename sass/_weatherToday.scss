@@ -1,11 +1,24 @@
 .weatherToday {
-    min-height: 35vh;
+    //min-height: 35vh;
     padding: 0.75rem;
+    
 
-    .todayDate {
-        display: flex;
-        justify-content: space-between;
+    #currentTempIconArea {
+        display: inline;
+        justify-content: space-evenly;
         align-items: flex-end;
+    }
+
+    #currentTempArea {
+        display: inline;
+        justify-content: space-evenly;
+        align-items: flex-end;
+        margin: auto;
+    }
+
+    .currentStatArea {
+        display: inline;
+        justify-content: space-evenly;
     }
 
     hr {
