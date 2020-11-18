@@ -1,4 +1,4 @@
-import {WEATHER_API_KEY} from './apikey.js';
+const WEATHER_API_KEY = "33c06c3cce7ccfe0faffd41db8db83a3";
 
 // Used to save user location locally
 let userZip;
