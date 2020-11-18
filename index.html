@@ -11,28 +11,24 @@
 <body>
     <main>
         <section class="locationSearch">
-            <h1 class="city-state-display" id="city-state">Hays, Ks</h1>
+            <h1 class="cityStateDisplay" id="cityState">Hays, Ks</h1>
+            <div id="dateDisplay"></div>
             <form id="zipCodeForm">
                 <label for="zipCode">Enter zip code to search weather</label>
-                <input id="zipCode" type="number" size="5" autocomplete="off" placeholder="Enter Zip Code" tabindex="0" />
-                <button id="search" class="button" title="Search for Weather" tabindex="0" aria-label="Search zip code for local weather">Search</button>
+                <input id="zipCode" type="text" maxLength="5" autocomplete="off" placeholder="Enter Zip Code" tabindex="0" />
+                <button id="search" class="button" title="Search for Weather" tabindex="2" aria-label="Search zip code for local weather">Search</button>
             </form>
-            <button id="save" class="button" title="Save my Location" tabindex="0" aria-label="Save current location for future viewing">Save</button>
+            <button id="save" class="button" title="Save my Location" tabindex="3" aria-label="Save current location for future viewing">Save</button>
+            <div id="status"></div>
             
         </section>
         <section class="weatherToday">
             <h2>Currently</h2>
-            <div id="currentTempIconArea">
-                Clouds
-            </div>
-            <div id="currentTempArea">
-                58 
-            </div>    
+            <img id="currentTempIconArea" src="" alt="weather icon"></img>
+            <div id="currentTempArea"></div>    
             <hr>
             <div class="currentStatArea">
-            <div id="todayHighTemp">
-                100
-            </div>
+            <div id="todayHighTemp"></div>
             <div id="todayHighTempLabel">High</div>
             <div id="todayLowTemp">
                 1
@@ -53,19 +49,59 @@
         <section class="fiveDayForecast">
             <h2>Your 5 Day Forecast</h2>
             <div class="singleFiveDay">
-                Day 1
+                <div class="fiveDayDate">
+                    <div class="fiveDayDateLabel"></div>
+                </div>
+                <div class="fiveDayHigh">
+                    <div class="fiveDayHighLabel"></div>
+                </div>
+                <div class="fiveDayLow">
+                    <div class="fiveDayLowLabel"></div>
+                </div>
             </div>
             <div class="singleFiveDay">
-                Day 2
+                <div class="fiveDayDate">
+                    <div class="fiveDayDateLabel"></div>
+                </div>
+                <div class="fiveDayHigh">
+                    <div class="fiveDayHighLabel"></div>
+                </div>
+                <div class="fiveDayLow">
+                    <div class="fiveDayLowLabel"></div>
+                </div>
             </div>
             <div class="singleFiveDay">
-                Day 3
+                <div class="fiveDayDate">
+                    <div class="fiveDayDateLabel"></div>
+                </div>
+                <div class="fiveDayHigh">
+                    <div class="fiveDayHighLabel"></div>
+                </div>
+                <div class="fiveDayLow">
+                    <div class="fiveDayLowLabel"></div>
+                </div>
             </div>
             <div class="singleFiveDay">
-                Day 4
+                <div class="fiveDayDate">
+                    <div class="fiveDayDateLabel"></div>
+                </div>
+                <div class="fiveDayHigh">
+                    <div class="fiveDayHighLabel"></div>
+                </div>
+                <div class="fiveDayLow">
+                    <div class="fiveDayLowLabel"></div>
+                </div>
             </div>
             <div class="singleFiveDay">
-                Day 5
+                <div class="fiveDayDate">
+                    <div class="fiveDayDateLabel"></div>
+                </div>
+                <div class="fiveDayHigh">
+                    <div class="fiveDayHighLabel"></div>
+                </div>
+                <div class="fiveDayLow">
+                    <div class="fiveDayLowLabel"></div>
+                </div>
             </div>
         </section>
 

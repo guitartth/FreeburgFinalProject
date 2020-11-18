@@ -24,64 +24,45 @@ window.onload = function() {
 }
 
 // Get current weather by zip code
-function getCurrentWeather(zip) {
-  document.getElementById('div-status').innerText = '';
-
-	fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city +'&units=imperial&appid=' + WEATHER_API_KEY)  
-	.then(function(resp) { return resp.json() }) // Convert data to json
-	.then(function(data) {
-        console.log(JSON.stringify(data));
-        if(data.cod!="200"){
-            document.getElementById('div-status').innerText = data.message;
-        }else{  
-            fillWeatherCurrent(data);
-            fetchWeather7Days(data.coord.lat, data.coord.lon);
-        }
-	})
-	.catch(function(error) {
-        console.log(error);
-	});
+async function getCurrentWeather(zip) {
+  document.getElementById('status').innerText = '';
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&units=imperial&appid=${WEATHER_API_KEY}`);
+  const weatherData = await response.json();
+  if (weatherData.cod!="200"){
+    document.getElementById('status').innerText = weatherData.message;
+  }
+  else {
+    displayWeather(weatherData);
+    getFiveDayForecast(weatherData.coord.lat, weatherData.coord.lon);
+  }
 }
 
 // Get weather for 5 day forecast
-function getFiveDayForecast(lat,lon) {
-	fetch('https://api.openweathermap.org/data/2.5/onecall?lat='+lat +'&lon='+lon+'&exclude=minutely,hourly,alerts&units=imperial&appid=' + WEATHER_API_KEY)  
-	.then(function(resp) { return resp.json() }) // Convert data to json
-	.then(function(data) {
-		fillWeather5days(data);
-	})
-	.catch(function() {
-		// catch any errors
-	});
+async function getFiveDayForecast(lat,lon) {
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&appid=${WEATHER_API_KEY}`)
+  const weatherData = await response.json();
+  displayFiveDays(weatherData);
 }
 
 // Display current weather
-function fillWeatherCurrent( data ) {
-    document.getElementById("h1_city_name").innerText = data.name + ','+ data.sys.country;
-    var date = new Date((data.dt + data.timezone)* 1000);
-
-    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    options.timeZone = 'UTC';
-    document.getElementById("div_current_date").innerText = date.toLocaleString('en-US', options)
-
-    document.getElementById("img_current-temperature_icon").src = "http://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png";
-    document.getElementById("div_current-temperature_value").innerHTML= Math.round(data.main.temp)+"&deg;";
-    document.getElementById("div_current-temperature_summary").innerText = data.weather[0].main;
-    document.getElementById("div-current-temp-high_value").innerHTML = Math.round(data.main.temp_max) +"&deg;";
-    document.getElementById("div-current-temp-low_value").innerHTML = Math.round(data.main.temp_min)+"&deg;";
-    document.getElementById("div-current-wind-speed_value").innerText = Math.round(data.wind.speed)+'mph';
-    document.getElementById("div-current-humidity_value").innerText = data.main.humidity+'%';
-
-    var dateSunRise = new Date((data.sys.sunrise + data.timezone)* 1000);
-    var dateSunSet = new Date((data.sys.sunset + data.timezone)* 1000);
-    let options2 = { hour:'2-digit', minute:'2-digit'};
-    options2.timeZone = 'UTC';
-    document.getElementById("div-current-sunrise_value").innerHTML = '<time>' + dateSunRise.toLocaleString('en-US', options2) + '</time>';
-    document.getElementById("div-current-sunset_value").innerHTML = '<time>' +  dateSunSet.toLocaleString('en-US', options2)+ '</time>';
+function displayWeather(weathers) {
+  document.getElementById("cityState").innerText = weathers.name + ', ' + weathers.sys.country;
+  let day = getTheDay();
+  let date = getTheDate();
+  let month = getTheMonth();
+  document.getElementById("dateDisplay").innerText = `${day}, ${month} ${date}`;
+  document.getElementById("currentTempIconArea").src = `http://openweathermap.org/img/wn/${weathers.weather[0].icon}@2x.png`;
+  document.getElementById("currentTempArea").innerHTML = Math.round(weathers.main.temp) + "&deg;";
+  document.getElementById("todayHighTemp").innerHTML = Math.round(weathers.main.temp_max) + "&deg;";
+  document.getElementById("todayLowTemp").innerHTML = Math.round(weathers.main.temp_min) + "&deg;";
+  document.getElementById("todayWind").innerText = Math.round(weathers.wind.speed) + 'mph';
+  document.getElementById("todayHumidity").innerText = weathers.main.humidity + '%';
 }
 
 // Display five day forecast
-function fillWeather5days( data ) {
+function displayFiveDays(weather) {
+  //console.log(weather)
+  /*
   var next5DaysHtml="";
   const dailyData = data.daily;
 
@@ -120,6 +101,7 @@ function fillWeather5days( data ) {
   }
   var next5DaysDiv = document.getElementById("div-next-5-days_container");
   next5DaysDiv.innerHTML = next5DaysHtml;
+  */
 }
 
 // Sets userZip to locally saved user location
@@ -130,4 +112,43 @@ function getLocation () {
 // Saves user location locally
 function saveLocation (zip) {
   localStorage.setItem(`${zip}`);
+}
+
+// Returns day of the week
+function getTheDay() {
+  let date = new Date();
+  let weekDay = new Array(7);
+  weekDay[0] = "Sunday";
+  weekDay[1] = "Monday";
+  weekDay[2] = "Tuesday";
+  weekDay[3] = "Wednesday";
+  weekDay[4] = "Thursday";
+  weekDay[5] = "Friday";
+  weekDay[6] = "Saturday";
+  return weekDay[date.getDay()];
+}
+
+// Returns date of the month
+function getTheDate() {
+  let newDate = new Date();
+  return newDate.getDate();
+}
+
+// Returns the month of the year
+function getTheMonth() {
+  let date = new Date();
+  let month = new Array(12);
+  month[0] = "January";
+  month[1] = "February";
+  month[2] = "March";
+  month[3] = "April";
+  month[4] = "May";
+  month[5] = "June";
+  month[6] = "July";
+  month[7] = "August";
+  month[8] = "September";
+  month[9] = "October";
+  month[10] = "November";
+  month[11] = "December";
+  return month[date.getMonth()];
 }
