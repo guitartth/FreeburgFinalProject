@@ -5,13 +5,14 @@
 
     #currentTempIconArea {
         display: inline;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: flex-end;
+        width: 50%;
     }
 
     #currentTempArea {
         display: inline;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: flex-end;
         margin: auto;
     }

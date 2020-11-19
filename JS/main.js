@@ -5,20 +5,23 @@ let userZip;
 
 window.onload = function() {
   // Load default or user saved weather
+  getLocation();
   if (userZip === undefined){
-    getCurrentWeather(14767);
+    getCurrentWeather("14767");
   }
   else {
     getCurrentWeather(userZip);
   }
 
   // Set up event listener for search button
-  document.getElementById("search").addEventListener("click", function() {
+  document.getElementById("search").addEventListener("click", function(event) {
+    event.preventDefault();
     getCurrentWeather(document.getElementById("zipCode").value);
   });
 
   // Set up event listener for save button
-  document.getElementById("save").addEventListener("click", function() {
+  document.getElementById("save").addEventListener("click", function(event) {
+    event.preventDefault();
     saveLocation(document.getElementById("zipCode").value);
   });
 }
@@ -106,12 +109,15 @@ function displayFiveDays(weather) {
 
 // Sets userZip to locally saved user location
 function getLocation () {
-  userZip = localStorage.getItem(`${zip}`);
+  userZip = localStorage.getItem("zipCode");
+  if (userZip === null)
+    userZip = 14767;
 }
 
 // Saves user location locally
 function saveLocation (zip) {
-  localStorage.setItem(`${zip}`);
+  localStorage.setItem("zipCode", `${zip}`);
+  document.getElementById('status').innerText = "Location saved successfully";
 }
 
 // Returns day of the week
