@@ -22,30 +22,19 @@
             left: -10000px;
         }
 
-        input[type="number"] {
+        input[type="text"] {
             width: 100%;
             font-size: 1.25rem;
             border: 2px solid black;
             border-radius: 5px;
             padding: 0.75rem;
             outline: none;
+            font-family: "Metal Mania", cursive;
         }
-
-        // Chrome, Safari, Edge, Opera, remove arrows from input
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
-        // Firefox, remove arrows from input
-        input[type=number] {
-            -moz-appearance:textfield; /* Firefox */
-        }
-
+     
         // Search input focus and hover styles
-        input[type="number"]:focus,
-        input[type="number"]:hover {
+        input[type="text"]:focus,
+        input[type="text"]:hover {
             box-shadow: 4px 2px 5px black;
         }
 

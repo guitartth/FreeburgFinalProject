@@ -4,6 +4,7 @@ const WEATHER_API_KEY = "33c06c3cce7ccfe0faffd41db8db83a3";
 let userZip;
 
 window.onload = function() {
+  //localStorage.clear();
   // Load default or user saved weather
   getLocation();
   if (userZip === undefined){
@@ -56,6 +57,10 @@ function displayWeather(weathers) {
   document.getElementById("dateDisplay").innerText = `${day}, ${month} ${date}`;
   document.getElementById("currentTempIconArea").src = `http://openweathermap.org/img/wn/${weathers.weather[0].icon}@2x.png`;
   document.getElementById("currentTempArea").innerHTML = Math.round(weathers.main.temp) + "&deg;";
+  let woohoo = document.getElementById("woohoo");
+  if(Math.round(weathers.main.temp) >= 80){
+    woohoo.play();
+  }
   document.getElementById("todayHighTemp").innerHTML = Math.round(weathers.main.temp_max) + "&deg;";
   document.getElementById("todayLowTemp").innerHTML = Math.round(weathers.main.temp_min) + "&deg;";
   document.getElementById("todayWind").innerText = Math.round(weathers.wind.speed) + 'mph';
@@ -116,8 +121,13 @@ function getLocation () {
 
 // Saves user location locally
 function saveLocation (zip) {
-  localStorage.setItem("zipCode", `${zip}`);
-  document.getElementById('status').innerText = "Location saved successfully";
+  if (zip === 14767) {
+    localStorage.setItem("zipCode", `${zip}`);
+    document.getElementById('status').innerText = "Location saved successfully";
+  }
+  else {
+    document.getElementById('status').innerText = "No location to save";
+  }
 }
 
 // Returns day of the week

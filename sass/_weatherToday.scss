@@ -1,20 +1,26 @@
 .weatherToday {
-    //min-height: 35vh;
+    min-height: 35vh;
     padding: 0.75rem;
     
+    #currently {
+        font-size: 45px;
+    }
 
     #currentTempIconArea {
         display: inline;
         justify-content: space-between;
-        align-items: flex-end;
+        height: auto;
+        max-width: 60%;
         width: 50%;
     }
 
+
     #currentTempArea {
-        display: inline;
+        display: block;
         justify-content: space-between;
-        align-items: flex-end;
         margin: auto;
+        align-content: center;
+        text-align: center;
     }
 
     .currentStatArea {
