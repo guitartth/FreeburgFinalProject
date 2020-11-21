@@ -18,7 +18,7 @@ $button-textcolor: black;
     box-sizing: border-box;
 }
 
-html, body {
+body {
     font-size: 18px;
     font-family: "Metal Mania", cursive;
     color: $default-font-color;
@@ -26,27 +26,23 @@ html, body {
     min-height: 100%;
     background: url("/evhbackground.jpg");
     background-color: rgba(0,0,0,0.5);
-    background-size: 100%;
+    padding: 20px;
     background-repeat: no-repeat;
     @include mq(320px) {
         font-size: 22px;
-        background-size: 300%;
+        background-size: cover;
         background-repeat: no-repeat;
     }
     @include mq(768px) {
         font-size: 24px;
-        background-size: 175%;
+        background-size: cover;
         background-repeat: no-repeat;
     }
     @include mq(1080px) {
         font-size: 26px;
-        background-size: 100%;
+        background-size: cover;
         background-repeat: no-repeat;
     }
-}
-
-body {
-    padding: 20px;
 }
 
 section {
