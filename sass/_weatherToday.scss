@@ -1,35 +1,25 @@
-.weatherToday {
-    min-height: 35vh;
-    padding: 0.75rem;
-    
-    #currently {
-        font-size: 45px;
-    }
+#currentContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    #currentTempIconArea {
-        display: inline;
-        justify-content: space-between;
-        height: auto;
-        max-width: 60%;
-        width: 50%;
-    }
+#currently {
+    text-align: center;
+    font-size: 3rem;
+}
 
+#currentTempIconArea {
+    width: 40%;
+    text-align: center;
+}
 
-    #currentTempArea {
-        display: block;
-        justify-content: space-between;
-        margin: auto;
-        align-content: center;
-        text-align: center;
-    }
+#currentTempArea {
+    font-size: 7rem;
+    margin-left: 50px;
+}
 
-    .currentStatArea {
-        display: inline;
-        justify-content: space-evenly;
-    }
-
-    hr {
-        width: 100%;
-        border: 1px solid gray;
-    }
+#currentTempIconArea, #currentTempArea {
+    display: inline-block;
+    padding: 2%;
 }
