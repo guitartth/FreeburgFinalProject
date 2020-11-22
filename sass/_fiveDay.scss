@@ -1,0 +1,22 @@
+.fiveDayForecast h2 {
+    text-align: center;
+    font-size: 3rem;
+    padding-top: 15px;
+}
+
+.fiveDayContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#singleFiveDay1,
+#singleFiveDay2,
+#singleFiveDay3,
+#singleFiveDay4,
+#singleFiveDay5 {
+    padding-bottom: 5px;
+}
