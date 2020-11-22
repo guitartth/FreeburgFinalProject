@@ -2,10 +2,14 @@ const WEATHER_API_KEY = "33c06c3cce7ccfe0faffd41db8db83a3";
 
 // Used to save user location locally
 let userZip;
+// Used to store state of zip code
 let userState;
+// Used to toggle between celcius and farenheit
+let celcius = true;
 
 window.onload = function() {
   //localStorage.clear();
+  switchDegree();
   // Load default or user saved weather
   getLocation();
   if (userZip === 14767){
@@ -29,30 +33,88 @@ window.onload = function() {
     event.preventDefault();
     saveLocation(document.getElementById("zipCode").value);
   });
+
+  // Set up event listener for celcius/farenheit button
+  document.getElementById("degree").addEventListener("click", function(event) {
+    event.preventDefault();
+    switchDegree();
+    getCurrentWeather(document.getElementById("zipCode").value);
+    blurButton();
+  });
 }
 
-// Get current weather by zip code
+// Get current weather by zip code Fahrenheit
 async function getCurrentWeather(zip) {
-  document.getElementById('status').innerText = '';
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&units=imperial&appid=${WEATHER_API_KEY}`);
-  const weatherData = await response.json();
-  if (weatherData.cod!="200"){
-    document.getElementById('status').innerText = weatherData.message;
+  if(celcius === true){
+    if(zip === 14767 || zip === undefined || zip === ""){
+      getCurrentWeatherCelcius(14767);
+    }
+    else{
+      getCurrentWeatherCelcius(zip);
+    }
   }
   else {
-    displayWeather(weatherData);
-    getFiveDayForecast(weatherData.coord.lat, weatherData.coord.lon);
+    if(zip === 14767 || zip === undefined || zip === ""){
+      document.getElementById('status').innerText = '';
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=14767&units=imperial&appid=${WEATHER_API_KEY}`);
+      const weatherData = await response.json();
+      if (weatherData.cod!="200"){
+        document.getElementById('status').innerText = weatherData.message;
+      }
+      else {
+        displayWeather(weatherData);
+        getFiveDayForecast(weatherData.coord.lat, weatherData.coord.lon);
+      }
+    }
+    else {
+      document.getElementById('status').innerText = '';
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&units=imperial&appid=${WEATHER_API_KEY}`);
+      const weatherData = await response.json();
+      if (weatherData.cod!="200"){
+        document.getElementById('status').innerText = weatherData.message;
+      }
+      else {
+        displayWeather(weatherData);
+        getFiveDayForecast(weatherData.coord.lat, weatherData.coord.lon);
+      }
+    }
   }
 }
 
-// Get weather for 5 day forecast
-async function getFiveDayForecast(lat,lon) {
-  const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=imperial&appid=${WEATHER_API_KEY}`)
-  const weatherData = await response.json();
-  displayFiveDays(weatherData);
+// Get current weather by zip code Celcius
+async function getCurrentWeatherCelcius(zip) {
+  document.getElementById('status').innerText = '';
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?zip=${zip}&units=metric&appid=${WEATHER_API_KEY}`);
+    const weatherData = await response.json();
+    if (weatherData.cod!="200"){
+    document.getElementById('status').innerText = weatherData.message;
+    }
+    else {
+    displayWeatherCelcius(weatherData);
+    getFiveDayForecastCelcius(weatherData.coord.lat, weatherData.coord.lon);
+    }
 }
 
-// Display current weather
+// Get weather for 5 day forecast Fahrenheit
+async function getFiveDayForecast(lat,lon) {
+  if (celcius === true){
+    getFiveDayForecastCelcius(lat,lon);
+  }
+  else {
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=imperial&appid=${WEATHER_API_KEY}`)
+    const weatherData = await response.json();
+    displayFiveDays(weatherData);
+  }
+}
+
+// Get weather for 5 day forecast Celcius
+async function getFiveDayForecastCelcius(lat, lon) {
+  const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=metric&appid=${WEATHER_API_KEY}`)
+  const weatherData = await response.json();
+  displayFiveDaysCelcius(weatherData);
+}
+
+// Display current weather Fahrenheit
 function displayWeather(weathers) {
   document.getElementById("cityState").innerText = weathers.name + ", " + userState;
   let day = getTheDay(0);
@@ -73,8 +135,64 @@ function displayWeather(weathers) {
   document.getElementById("todayHumidity").innerText = weathers.main.humidity + '%';
 }
 
-// Display five day forecast
+// Display current weather Celcius
+function displayWeatherCelcius(weathers) {
+  document.getElementById("cityState").innerText = weathers.name + ", " + userState;
+  let day = getTheDay(0);
+  let date = getTheDate(0);
+  let month = getTheMonth(0);
+  document.getElementById("dateDisplay").innerText = `${day}, ${month} ${date}`;
+  document.getElementById("currentTempArea").innerHTML = Math.round(weathers.main.temp) + "&deg;";
+  document.getElementById("currentTempIconArea").src = `https://openweathermap.org/img/wn/${weathers.weather[0].icon}@2x.png`;
+  
+  // search for 78521 for best odds!
+  let woohoo = document.getElementById("woohoo");
+  if(Math.round(weathers.main.temp) >= 80 || Math.round(weathers.main.temp) <= 32){
+    woohoo.play();
+  }
+  document.getElementById("todayHighTemp").innerHTML = Math.round(weathers.main.temp_max) + "&deg;";
+  document.getElementById("todayLowTemp").innerHTML = Math.round(weathers.main.temp_min) + "&deg;";
+  document.getElementById("todayWind").innerText = Math.round(weathers.wind.speed) + 'mph';
+  document.getElementById("todayHumidity").innerText = weathers.main.humidity + '%';
+}
+
+// Display five day forecast Fahrenheit
 function displayFiveDays(weathers) {
+  let daily = weathers.daily;
+  // Day 1
+  let date1 = getTheDate(1);
+  let day1 = getTheDay(1);
+  document.getElementById("fiveDayDate1").innerText = `${day1}-${date1}`;
+  document.getElementById("fiveDayHigh1").innerHTML = Math.round(daily[1].temp.max) + "&deg;";
+  document.getElementById("fiveDayLow1").innerHTML = Math.round(daily[1].temp.min) + "&deg;";
+  // Day 2
+  let date2 = getTheDate(2);
+  let day2 = getTheDay(2);
+  document.getElementById("fiveDayDate2").innerText = `${day2}-${date2}`;
+  document.getElementById("fiveDayHigh2").innerHTML = Math.round(daily[2].temp.max) + "&deg;";
+  document.getElementById("fiveDayLow2").innerHTML = Math.round(daily[2].temp.min) + "&deg;";
+  // Day 3
+  let date3 = getTheDate(3);
+  let day3 = getTheDay(3);
+  document.getElementById("fiveDayDate3").innerText = `${day3}-${date3}`;
+  document.getElementById("fiveDayHigh3").innerHTML = Math.round(daily[3].temp.max) + "&deg;";
+  document.getElementById("fiveDayLow3").innerHTML = Math.round(daily[3].temp.min) + "&deg;";
+  // Day 4
+  let date4 = getTheDate(4);
+  let day4 = getTheDay(4);
+  document.getElementById("fiveDayDate4").innerText = `${day4}-${date4}`;
+  document.getElementById("fiveDayHigh4").innerHTML = Math.round(daily[4].temp.max) + "&deg;";
+  document.getElementById("fiveDayLow4").innerHTML = Math.round(daily[4].temp.min) + "&deg;";
+  // Day 5
+  let date5 = getTheDate(5);
+  let day5 = getTheDay(5);
+  document.getElementById("fiveDayDate5").innerText = `${day5}-${date5}`;
+  document.getElementById("fiveDayHigh5").innerHTML = Math.round(daily[5].temp.max) + "&deg;";
+  document.getElementById("fiveDayLow5").innerHTML = Math.round(daily[5].temp.min) + "&deg;";
+}
+
+// Display five day forecast Celcius
+function displayFiveDaysCelcius(weathers) {
   let daily = weathers.daily;
   // Day 1
   let date1 = getTheDate(1);
@@ -169,6 +287,23 @@ function getTheMonth(add) {
   month[10] = "November";
   month[11] = "December";
   return month[date.getMonth() + add];
+}
+
+// Switches between celcius and fahrenheit display
+function switchDegree() {
+  if (celcius === false){
+    celcius = true;
+    document.querySelector('#degree').innerHTML = "Fahrenheit";
+  }
+  else {
+    celcius = false;
+    document.querySelector('#degree').innerHTML = "Celcius";
+  }
+}
+
+// Blurs buttons after click
+function blurButton() {
+  document.getElementById("degree").blur();
 }
 
 // Returns state by zip code
