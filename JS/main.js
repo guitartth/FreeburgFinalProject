@@ -147,7 +147,7 @@ function displayWeatherCelcius(weathers) {
   
   // search for 78521 for best odds!
   let woohoo = document.getElementById("woohoo");
-  if(Math.round(weathers.main.temp) >= 80 || Math.round(weathers.main.temp) <= 32){
+  if(Math.round(weathers.main.temp) >= 27 || Math.round(weathers.main.temp) <= 0){
     woohoo.play();
   }
   document.getElementById("todayHighTemp").innerHTML = Math.round(weathers.main.temp_max) + "&deg;";
