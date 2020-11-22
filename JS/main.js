@@ -121,7 +121,7 @@ function displayWeather(weathers) {
   let date = getTheDate(0);
   let month = getTheMonth(0);
   document.getElementById("dateDisplay").innerText = `${day}, ${month} ${date}`;
-  document.getElementById("currentTempArea").innerHTML = Math.round(weathers.main.temp) + "&deg;";
+  document.getElementById("currentTempArea").innerHTML = Math.round(weathers.main.temp) + "&deg;F";
   document.getElementById("currentTempIconArea").src = `https://openweathermap.org/img/wn/${weathers.weather[0].icon}@2x.png`;
   
   // search for 78521 for best odds!
@@ -142,7 +142,7 @@ function displayWeatherCelcius(weathers) {
   let date = getTheDate(0);
   let month = getTheMonth(0);
   document.getElementById("dateDisplay").innerText = `${day}, ${month} ${date}`;
-  document.getElementById("currentTempArea").innerHTML = Math.round(weathers.main.temp) + "&deg;";
+  document.getElementById("currentTempArea").innerHTML = Math.round(weathers.main.temp) + "&deg;C";
   document.getElementById("currentTempIconArea").src = `https://openweathermap.org/img/wn/${weathers.weather[0].icon}@2x.png`;
   
   // search for 78521 for best odds!
