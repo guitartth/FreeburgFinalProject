@@ -131,7 +131,7 @@ function displayWeather(weathers) {
   }
   document.getElementById("todayHighTemp").innerHTML = Math.round(weathers.main.temp_max) + "&deg;";
   document.getElementById("todayLowTemp").innerHTML = Math.round(weathers.main.temp_min) + "&deg;";
-  document.getElementById("todayWind").innerText = Math.round(weathers.wind.speed) + 'mph';
+  document.getElementById("todayWind").innerText = Math.round(weathers.wind.speed) + ' mph';
   document.getElementById("todayHumidity").innerText = weathers.main.humidity + '%';
 }
 
@@ -152,12 +152,13 @@ function displayWeatherCelcius(weathers) {
   }
   document.getElementById("todayHighTemp").innerHTML = Math.round(weathers.main.temp_max) + "&deg;";
   document.getElementById("todayLowTemp").innerHTML = Math.round(weathers.main.temp_min) + "&deg;";
-  document.getElementById("todayWind").innerText = Math.round(weathers.wind.speed) + 'mph';
+  document.getElementById("todayWind").innerText = Math.round(weathers.wind.speed) + ' mph';
   document.getElementById("todayHumidity").innerText = weathers.main.humidity + '%';
 }
 
 // Display five day forecast Fahrenheit
 function displayFiveDays(weathers) {
+  console.log(weathers);
   let daily = weathers.daily;
   // Day 1
   let date1 = getTheDate(1);
@@ -165,30 +166,35 @@ function displayFiveDays(weathers) {
   document.getElementById("fiveDayDate1").innerText = `${day1}-${date1}`;
   document.getElementById("fiveDayHigh1").innerHTML = Math.round(daily[1].temp.max) + "&deg;";
   document.getElementById("fiveDayLow1").innerHTML = Math.round(daily[1].temp.min) + "&deg;";
+  document.getElementById("fiveDayIcon1").src = `https://openweathermap.org/img/wn/${daily[0].weather[0].icon}@2x.png`;
   // Day 2
   let date2 = getTheDate(2);
   let day2 = getTheDay(2);
   document.getElementById("fiveDayDate2").innerText = `${day2}-${date2}`;
   document.getElementById("fiveDayHigh2").innerHTML = Math.round(daily[2].temp.max) + "&deg;";
   document.getElementById("fiveDayLow2").innerHTML = Math.round(daily[2].temp.min) + "&deg;";
+  document.getElementById("fiveDayIcon2").src = `https://openweathermap.org/img/wn/${daily[1].weather[0].icon}@2x.png`;
   // Day 3
   let date3 = getTheDate(3);
   let day3 = getTheDay(3);
   document.getElementById("fiveDayDate3").innerText = `${day3}-${date3}`;
   document.getElementById("fiveDayHigh3").innerHTML = Math.round(daily[3].temp.max) + "&deg;";
   document.getElementById("fiveDayLow3").innerHTML = Math.round(daily[3].temp.min) + "&deg;";
+  document.getElementById("fiveDayIcon3").src = `https://openweathermap.org/img/wn/${daily[2].weather[0].icon}@2x.png`;
   // Day 4
   let date4 = getTheDate(4);
   let day4 = getTheDay(4);
   document.getElementById("fiveDayDate4").innerText = `${day4}-${date4}`;
   document.getElementById("fiveDayHigh4").innerHTML = Math.round(daily[4].temp.max) + "&deg;";
   document.getElementById("fiveDayLow4").innerHTML = Math.round(daily[4].temp.min) + "&deg;";
+  document.getElementById("fiveDayIcon4").src = `https://openweathermap.org/img/wn/${daily[3].weather[0].icon}@2x.png`;
   // Day 5
   let date5 = getTheDate(5);
   let day5 = getTheDay(5);
   document.getElementById("fiveDayDate5").innerText = `${day5}-${date5}`;
   document.getElementById("fiveDayHigh5").innerHTML = Math.round(daily[5].temp.max) + "&deg;";
   document.getElementById("fiveDayLow5").innerHTML = Math.round(daily[5].temp.min) + "&deg;";
+  document.getElementById("fiveDayIcon5").src = `https://openweathermap.org/img/wn/${daily[4].weather[0].icon}@2x.png`;
 }
 
 // Display five day forecast Celcius
@@ -200,30 +206,35 @@ function displayFiveDaysCelcius(weathers) {
   document.getElementById("fiveDayDate1").innerText = `${day1}-${date1}`;
   document.getElementById("fiveDayHigh1").innerHTML = Math.round(daily[1].temp.max) + "&deg;";
   document.getElementById("fiveDayLow1").innerHTML = Math.round(daily[1].temp.min) + "&deg;";
+  document.getElementById("fiveDayIcon1").src = `https://openweathermap.org/img/wn/${daily[0].weather[0].icon}@2x.png`;
   // Day 2
   let date2 = getTheDate(2);
   let day2 = getTheDay(2);
   document.getElementById("fiveDayDate2").innerText = `${day2}-${date2}`;
   document.getElementById("fiveDayHigh2").innerHTML = Math.round(daily[2].temp.max) + "&deg;";
   document.getElementById("fiveDayLow2").innerHTML = Math.round(daily[2].temp.min) + "&deg;";
+  document.getElementById("fiveDayIcon2").src = `https://openweathermap.org/img/wn/${daily[1].weather[0].icon}@2x.png`;
   // Day 3
   let date3 = getTheDate(3);
   let day3 = getTheDay(3);
   document.getElementById("fiveDayDate3").innerText = `${day3}-${date3}`;
   document.getElementById("fiveDayHigh3").innerHTML = Math.round(daily[3].temp.max) + "&deg;";
   document.getElementById("fiveDayLow3").innerHTML = Math.round(daily[3].temp.min) + "&deg;";
+  document.getElementById("fiveDayIcon3").src = `https://openweathermap.org/img/wn/${daily[2].weather[0].icon}@2x.png`;
   // Day 4
   let date4 = getTheDate(4);
   let day4 = getTheDay(4);
   document.getElementById("fiveDayDate4").innerText = `${day4}-${date4}`;
   document.getElementById("fiveDayHigh4").innerHTML = Math.round(daily[4].temp.max) + "&deg;";
   document.getElementById("fiveDayLow4").innerHTML = Math.round(daily[4].temp.min) + "&deg;";
+  document.getElementById("fiveDayIcon4").src = `https://openweathermap.org/img/wn/${daily[3].weather[0].icon}@2x.png`;
   // Day 5
   let date5 = getTheDate(5);
   let day5 = getTheDay(5);
   document.getElementById("fiveDayDate5").innerText = `${day5}-${date5}`;
   document.getElementById("fiveDayHigh5").innerHTML = Math.round(daily[5].temp.max) + "&deg;";
   document.getElementById("fiveDayLow5").innerHTML = Math.round(daily[5].temp.min) + "&deg;";
+  document.getElementById("fiveDayIcon5").src = `https://openweathermap.org/img/wn/${daily[4].weather[0].icon}@2x.png`;
 }
 
 // Sets userZip to locally saved user location
