@@ -31,21 +31,17 @@
     display: flex;
     height: auto;
     @include mq(320px) {
-        //font-size: .9rem;
         width: 60%;
         height: auto;
-        //margin-top: 5px;
     }
     @include mq(768px) {
         font-size: 1.2rem;
         width: 65%;
         height: auto;
-        //margin-top: 5px;
     }
     @include mq(1080px) {
         font-size: 1.4rem;
         width: 75%;
         height: auto;
-        //margin-top: 5px;
     }
 }
